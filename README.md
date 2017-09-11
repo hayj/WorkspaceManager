@@ -115,7 +115,7 @@ To use this script, you will need `jq` to read json conf from bash script:
 
 	sudo apt-get install jq
 
-You can to add an authorized key in the host to avoid asking a password.
+You can add an authorized key in the host to avoid asking a password.
 
 You can write your own script in the `wm-dist` folder to run the project on the remote server. This script won't be erased by re-launching `wm-dist`.
 

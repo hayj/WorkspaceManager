@@ -5,7 +5,6 @@ wm-dist/
 TODO.md
 pip-reinstall.sh
 *.pyc
-*/workspacetest/*
 .directory
 .project
 
