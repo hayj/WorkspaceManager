@@ -6,7 +6,10 @@ TODO.md
 pip-reinstall.sh
 *.pyc
 */workspacetest/*
+.directory
+.project
 
+./workspacemanager/test/workspacetest/*
 
 
 .metadata
