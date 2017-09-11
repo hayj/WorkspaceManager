@@ -1,0 +1,8 @@
+include *.md
+include *.json
+include *.sh
+include LICENSE
+include RELEASE
+include requirements.txt
+include local-dependencies.txt
+recursive-include workspacemanager *
