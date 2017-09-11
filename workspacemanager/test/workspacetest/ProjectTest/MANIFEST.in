@@ -1,7 +1,0 @@
-include *.md
-include *.json
-include *.sh
-include LICENSE
-include LICENSE.txt
-include RELEASE
-include requirements.txt

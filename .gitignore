@@ -9,7 +9,7 @@ pip-reinstall.sh
 .directory
 .project
 
-./workspacemanager/test/workspacetest/*
+**/workspacetest/
 
 
 .metadata
