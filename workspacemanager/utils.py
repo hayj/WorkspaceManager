@@ -1,6 +1,6 @@
 # coding: utf-8
 
-import os
+import os, errno
 import sys
 import subprocess
 import glob
@@ -85,7 +85,6 @@ def getDirs3(theProjectDirectory=None):
     correctPackageNameFound = False
     for (dirname, dirnames, filenames) in os.walk(theProjectDirectory):
         if dirname != theProjectDirectory and dirname != theProjectDirectory + "/.settings":
-            print '---> ' + dirname
             currentPackage = dirname
             if firstPackage is None:
                 firstPackage = dirname
@@ -112,8 +111,6 @@ def getDirs3(theProjectDirectory=None):
             thePackageName,
             realPackagePath,
             realPackageName)
-# TODO OOO et l'utiliser dans setup
-# et voir où j'utilise  theProjectPackageDirectory pour corriger... puis faire md2html
 
 def getVenvName(theProjectName):
     return theProjectName.lower() + "-venv"
@@ -208,8 +205,51 @@ def argvOptionsToDict(argv=None):
             return None
     return argvDict
 
+def getDir(filePath):
+    return os.path.dirname(os.path.abspath(filePath))
+
+def getCurrentDir():
+    return os.getcwd()
+
+def pathToAbsolute(path):
+    if len(path) > 0 and path[0] != "/":
+        path = getCurrentDir() + "/" + path
+    return path
+
+def isFile(filePath):
+    filePath = pathToAbsolute(filePath)
+#     print filePath
+    return os.path.isfile(filePath)
+
+def fileToStr(path):
+    with open(path, 'r') as myfile:
+        data = myfile.read()
+    return data
+
+def fileToStrList(path, strip=True):
+    data = fileToStr(path)
+    if strip:
+        data = data.strip()
+    return data.splitlines()
+
+def strToFile(text, path):
+#     if not isDir(getDir(path)) and isDir(getDir(text)):
+#         path, text = text, path
+    if isinstance(text, list):
+        text = "\n".join(text)
+    textFile = open(path, "w")
+    textFile.write(text)
+    textFile.close()
+
+def removeIfExists(path):
+    try:
+        os.remove(path)
+    except OSError as e: # this would be "except OSError, e:" before Python 2.6
+        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+            raise # re-raise exception if a different error occurred
+
 if __name__ == '__main__':
-    pass
+    print fileToStrList("/home/hayj/test.txt")
 
 
 

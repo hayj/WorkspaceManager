@@ -35,9 +35,22 @@ if os.path.isfile(requirementPath):
 # dependency_links is deprecated, see https://serverfault.com/questions/608192/pip-install-seems-to-be-ignoring-dependency-links
 dependency_links = []
 
-# Get the version of the lib in the __init__.py:
+# We search a folder containing "__init__.py":
+def walklevel(some_dir, level=1):
+    some_dir = some_dir.rstrip(os.path.sep)
+    assert os.path.isdir(some_dir)
+    num_sep = some_dir.count(os.path.sep)
+    for root, dirs, files in os.walk(some_dir):
+        yield root, dirs, files
+        num_sep_this = root.count(os.path.sep)
+        if num_sep + level <= num_sep_this:
+            del dirs[:]
 mainPackageName = thelibFolder.lower().split('/')[-1]
+for dirname, dirnames, filenames in walklevel(thelibFolder):
+    if "__init__.py" in filenames:
+        mainPackageName = dirname.split("/")[-1]
 packagePath = thelibFolder + '/' + mainPackageName
+# Get the version of the lib in the __init__.py:
 initFilePath = packagePath + '/' + "__init__.py"
 if os.path.isdir(packagePath):
     with open(initFilePath, 'r') as f:
@@ -63,7 +76,7 @@ if os.path.isfile(readmePath):
 setup(
 
     # The name for PyPi:
-    name=mainPackageName,
+    name=thelibFolder.lower().split('/')[-1],
 
     # The version of the code which is located in the main __init__.py:
     version=version,

@@ -40,6 +40,9 @@ def getDependencies(theProjectDirectory=None, alreadyLocalInstalled=None):
         with open(filePath, 'r') as f:
             for line in f:
                 line = line.strip()
+                # Remove the replacement project:
+                if "/" in line:
+                    line = line.split("/")[0]
                 if len(line) > 0 and line not in alreadyLocalInstalled:
                     alreadyLocalInstalled.append(line)
                     currentDepPath = findProject(workspacePath, line)

@@ -1,0 +1,265 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>README.md</title><style> 
+  body {
+	color: #333;
+	font-family: 'Segoe UI', 'Lucida Grande', Helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 50px auto;
+	max-width: 800px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+	line-height: 1em;
+	margin: 20px 0;
+}
+h1 {
+	font-size: 2.25em;
+}
+h2 {
+	font-size: 1.75em;
+}
+h3 {
+	font-size: 1.5em;
+}
+h4, h5, h6 {
+	font-size: 1.25em;
+}
+
+a {
+	color: #08C;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	text-decoration: underline;
+}
+a:visited {
+	color: #058;
+}
+
+img {
+	max-width: 100%;
+}
+
+li + li {
+	margin-top: 3px;
+}
+dt {
+	font-weight: bold;
+}
+
+code {
+	background: #EEE;
+	font-family: "Consolas", "Lucida Console", monospace;
+	padding: 1px 5px;
+}
+pre {
+	background: #EEE;
+	padding: 5px 10px;
+	white-space: pre-wrap;
+}
+pre code {
+	padding: 0;
+}
+
+blockquote {
+	border-left: 5px solid #EEE;
+	margin: 0;
+	padding: 0 10px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+table + table {
+	margin-top: 1em;
+}
+thead {
+	background: #EEE;
+	text-align: left;
+}
+th, td {
+	border: 1px solid #EEE;
+	padding: 5px 10px;
+}
+
+hr {
+	background: #EEE;
+	border: 0;
+	height: 1px;
+}
+
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style></head><body>
+<h1 id="workspacemanager">WorkspaceManager</h1>
+<p>In order to use this tool, we assume:</p>
+<ul>
+<li>You are familiar with pip / setuptools and python virtual envs</li>
+<li>You want to organize both dependencies between your own projects and with external libs using python virtual envs</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<p>This lib works on a <em>workspace</em> which is a main folder within recursively projects and folders (which are sub-workspaces to gather projects). Here an example :</p>
+<pre><code>└── MyPythonWorkspace
+    ├── Project1
+    │   └── project1
+    │        └── __init__.py
+    ├── Basics
+    │   ├── Project2
+    │   │    └── project2
+    │   │        └── __init__.py
+    │   └── Project3
+    │        └── project3
+    │            └── __init__.py
+    └── wm-conf.json</code></pre>
+<p>You need to create a blank <code>wm-conf.json</code> in the root folder to indicate which one is the main workspace.</p>
+<p>To manage an eclipse workspace this way, you need to set MyPythonWorkspace as the workspace and add all projects as external projects, then manage them with eclipse working sets to have the same tree organization.</p>
+<p>You also have to install <a href="https://github.com/berdario/pew">Pew</a> and <a href="https://pypi.python.org/pypi/pipsi">pipsi</a> in order to use wm-pew:</p>
+<pre><code>sudo pip install pipsi
+sudo pipsi install pew</code></pre>
+<h2 id="installation">Installation</h2>
+<pre><code>sudo pip install workspacemanager</code></pre>
+<h2 id="generate-the-setup-file">Generate the setup file</h2>
+<p>Usage (the default path is the current):</p>
+<pre><code>wm-setup [-a /path/to/the/project]</code></pre>
+<ol style="list-style-type: decimal">
+<li>This function will create some files (<code>LICENCE.txt</code>, <code>setup.py</code>, <code>requirements.txt</code>...). Each file can be edited in the <em>/path/to/the/lib/setup-templates</em>. For instance, you can paste a different licence in the templates folder(default is the MIT licence)</li>
+<li>Each file will be edited according to the username, email, date given when executing the command line</li>
+<li>If there are no <em>__init__.py</em> files or an empty one, a version is added</li>
+</ol>
+<p>You can add lines in the <code>MANIFEST.in</code>, choose <em>topics</em> in <code>setup.py</code>, add requirements...</p>
+<p>Then you can subscribe to PyPi and upload your project using <code>python setup.py sdist upload</code>.</p>
+<p>Or install your project on the current activated venv using <code>python setup.py install</code></p>
+<p>You can create <code>wm-conf.json</code> in your workspace (or edit it if it already exists) to set default values:</p>
+<pre><code>{
+    &quot;author_email&quot;: &quot;your@email.com&quot;,
+    &quot;author&quot;: &quot;yourusername&quot;
+}</code></pre>
+<p>On Linux you need to install pandoc and pypandoc to handle markdown to reStructuredText convertion:</p>
+<pre><code>sudo apt-get install pandoc
+pip install pypandoc</code></pre>
+<h2 id="generate-a-venv-linked-to-the-project-using-pew">Generate a venv linked to the project using Pew</h2>
+<pre><code>wm-pew [-a /path/to/the/project] [-p /path/to/python]</code></pre>
+<p>This command line is equivalent to <code>pew new -a /path/to/the/project projectname-venv</code></p>
+<p>If a python bin is given (e.g. <em>/usr/bin/python2.7</em>), the command is equivalent to <code>pew new -p /path/to/python -a /path/to/the/project projectname-venv</code></p>
+<p>To use the venv in eclipse PyDev, right click on your project, properties, interpreter, configure, new, add the venv path (e.g. <code>/home/username/.virtualenvs/projectname-venv/bin/python2.7</code>), ok, unselect all but the venv libs, ok, select the new venv, ok.</p>
+<p>If this function doesn't work, add the pew path to <code>/bin</code> using <code>sudo ln -s ~/.local/bin/pew /bin</code></p>
+<h2 id="install-internal-workspace-dependencies-on-the-project-venv">Install internal workspace dependencies on the project venv</h2>
+<p>Each project has one or more packages with <em>__init__.py</em> files.</p>
+<p>Create <code>local-dependencies.txt</code> at the root of the current project:</p>
+<pre><code>cd /path/to/the/project
+touch local-dependencies.txt</code></pre>
+<p>Then add local dependencies, i.e. projects (in your workspace) that your project depends on:</p>
+<pre><code>echo &quot;Utils&quot; &gt;&gt; local-dependencies.txt
+echo &quot;MachineLearningTools&quot; &gt;&gt; local-dependencies.txt</code></pre>
+<p>The current project and all projects in <code>local-dependencies.txt</code> must have setups files which work. And the current project must have an associated venv.</p>
+<p>This command will install all dependencies (recursively) in the current project venv, so you can work on all project (e.g. through eclipse), install all update but work on a totally independent venv:</p>
+<pre><code>wm-deps [-a /path/to/the/project] [-r filename.txt]</code></pre>
+<h2 id="create-a-dist-of-your-project-and-all-dependencies">Create a dist of your project and all dependencies</h2>
+<pre><code>wm-dist</code></pre>
+<p>This function will package the project and all internal dependencies in <em>wm-dist</em> folder.</p>
+<p>You can then edit the <em>conf.json</em> file and use <code>rsync-all.sh</code> to install all on a remote server.</p>
+<p>To use this script, you will need <code>jq</code> to read json conf from bash script:</p>
+<pre><code>sudo apt-get install jq</code></pre>
+<p>You can add an authorized key in the host to avoid asking a password.</p>
+<p>You can write your own script in the <code>wm-dist</code> folder to run the project on the remote server. This script won't be erased by re-launching <code>wm-dist</code>.</p>
+<p>You can set <code>erase_wm-dist_templates</code> to true in the <code>wm-conf.json</code> file if you want the dist templates to be erased at each re-use.</p>
+<p>If pew is not found on the remote server, add the pew path to <code>/bin</code> using <code>sudo ln -s ~/.local/bin/pew /bin</code></p>
+<h2 id="others">Others</h2>
+<p>Use <code>wm-workon</code> to disp the pew workon command line according to the current project.</p>
+<p>Use <code>wm-freeze</code> to see which lib is installed in the linked venv.</p>
+<p>Use <code>wm-req</code> to install all requirements of <em>requirements.txt</em> in the linked venv.</p>
+
+</body></html>

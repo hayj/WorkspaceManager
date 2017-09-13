@@ -43,6 +43,9 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
         with open(filePath, 'r') as f:
             for line in f:
                 line = line.strip()
+                # Remove the replacement project:
+                if "/" in line:
+                    line = line.split("/")[0]
                 if len(line) > 0 and line not in alreadyLocalInstalled:
                     alreadyLocalInstalled.append(line)
                     currentDepPath = findProject(workspacePath, line)
@@ -50,6 +53,10 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
                         print indentText + "Installing " + line + "..."
                         sh.cd(currentDepPath)
                         # "pew in " + theProjectVenvName + " python setup.py install"
+#                         sh.yes(sh.pew("in", theProjectVenvName, "pip", "uninstall", line.lower())) # pip uninstall workspacemanager
+#                         sh.pew("in", theProjectVenvName, "pip", "uninstall", line.lower(), _in="y") # pip uninstall workspacemanager
+#                         with sh.contrib.sudo("-H"):
+#                             sh.pew("in", theProjectVenvName, "pip", "uninstall", line.lower())
                         sh.pew("in", theProjectVenvName, "python", "setup.py", "install")
                         sh.pew("in", theProjectVenvName, 'pip', 'install', '-r', 'requirements.txt')
                         # Install all dependencies of the current dependency:

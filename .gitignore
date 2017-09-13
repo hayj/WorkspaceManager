@@ -1,4 +1,4 @@
-workspacemanager.egg-info/
+*.egg-info/
 build/
 dist/
 wm-dist/

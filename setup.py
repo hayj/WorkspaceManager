@@ -6,7 +6,7 @@ import importlib
 import re
 
 # Vars to set:
-description = "This tool can manage a workspace by providing some useful function (generation of the setup files, generate a virtual env according to the project name, generate dist of all dependencies...). See the readme for more informations."
+description = "This tool can manage a workspace by providing some useful function (generation of the setup files, generate a virtual env according to the project name, install your own dependencies, generate dist of all dependencies...). See the readme for more informations."
 author = "hayj"
 author_email = "hj@hayj.fr"
 version = "0.0.1" # replaced by the version in the main init file if exists

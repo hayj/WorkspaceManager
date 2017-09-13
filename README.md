@@ -101,6 +101,13 @@ This command will install all dependencies (recursively) in the current project 
 
 	wm-deps [-a /path/to/the/project] [-r filename.txt]
 
+If a local project (your own) is also on PyPi, you can write the PyPi project name after the local project name following by a "/" in `local-dependencies.txt` :
+
+	echo "Utils/hjutils" >> local-dependencies.txt
+
+So, in this example, the `hjutils` project from PyPi you uploaded will not be installed using `wm-req`. Instead, you will need `wm-deps` to install the local project.
+
+If you want to set a custom project name to upload on PyPi, for example `hjutils` instead of `utils` (because the project `utils` probably still exists), just edit the `name` param in the setup file. 
 
 Create a dist of your project and all dependencies
 -------
