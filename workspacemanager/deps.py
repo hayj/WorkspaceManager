@@ -36,7 +36,7 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
     if "r" in argv:
         filePath = theProjectDirectory + "/" + argv["r"]
     
-    # Install all dependencies:
+    # Install all dependencies: 
     if alreadyLocalInstalled is None:
         alreadyLocalInstalled = [theProjectName]
     if os.path.isfile(filePath):
