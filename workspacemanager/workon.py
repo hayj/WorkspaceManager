@@ -17,7 +17,7 @@ def dispWorkon(theProjectDirectory=None):
     venvName = thePackageName + "-venv"
     
     # Work on:
-    print "pew workon " + venvName
+    print("pew workon " + venvName)
 
 
 if __name__ == '__main__':

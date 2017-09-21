@@ -12,7 +12,7 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
     # Get args:
     argv = argvOptionsToDict()
     if argv is None:
-        print "Please check the readme for the command usage."
+        print("Please check the readme for the command usage.")
         exit()
     
     # Create indentText:
@@ -50,7 +50,7 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
                     alreadyLocalInstalled.append(line)
                     currentDepPath = findProject(workspacePath, line)
                     if os.path.isdir(currentDepPath):
-                        print indentText + "Installing " + line + "..."
+                        print(indentText + "Installing " + line + "...")
                         sh.cd(currentDepPath)
                         # "pew in " + theProjectVenvName + " python setup.py install"
 #                         sh.yes(sh.pew("in", theProjectVenvName, "pip", "uninstall", line.lower())) # pip uninstall workspacemanager
@@ -62,7 +62,7 @@ def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalI
                         # Install all dependencies of the current dependency:
                         installDeps(theProjectDirectory=currentDepPath, theProjectVenvName=theProjectVenvName, alreadyLocalInstalled=alreadyLocalInstalled, indent=indent+1)
                     else:
-                        print line + " doesn't exist."
+                        print(line + " doesn't exist.")
 
 if __name__ == '__main__':
     installDeps()

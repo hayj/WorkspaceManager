@@ -1,7 +1,7 @@
 # coding: utf-8
 import workspacemanager
 
-from utils import getDirs2
+from .utils import getDirs2
 import os.path
 
 def fileToStr(path):
@@ -11,7 +11,7 @@ def fileToStr(path):
     return data
 
 def printHelp():
-    print "workspacemanager version: " + str(workspacemanager.__version__) 
+    print("workspacemanager version: " + str(workspacemanager.__version__)) 
     # Get all dirs:
     (thisLibPackageDirectory,
     theProjectDirectory,
@@ -23,7 +23,7 @@ def printHelp():
     
     # print the README :
     readmePath = os.path.abspath(os.path.join(thisLibPackageDirectory, os.pardir)) + "/README.md"
-    print fileToStr(readmePath)
+    print(fileToStr(readmePath))
 
 if __name__ == '__main__':
     printHelp()

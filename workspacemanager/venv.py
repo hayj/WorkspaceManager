@@ -9,7 +9,7 @@ def generateVenv(theProjectDirectory=None):
     # Get args:
     argv = argvOptionsToDict()
     if argv is None and theProjectDirectory is None:
-        print "Please check the readme for the command usage."
+        print("Please check the readme for the command usage.")
         exit()
     
     # Get all dirs:
@@ -27,7 +27,7 @@ def generateVenv(theProjectDirectory=None):
     venvName = thePackageName + "-venv"
     venvsList = sh.pew("ls").split()
     if venvName in venvsList:
-        print venvName + " already exists."
+        print(venvName + " already exists.")
     else:
         # Build the command:
         commandOptions = "-a " + theProjectDirectory + " " + venvName
@@ -36,7 +36,7 @@ def generateVenv(theProjectDirectory=None):
         commandOptions = "new -d " + commandOptions # -d prevent the newly created venv activation
         
         # Execute the command:
-        print sh.pew(*commandOptions.split())
+        print(sh.pew(*commandOptions.split()))
     
     
 

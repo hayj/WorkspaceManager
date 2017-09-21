@@ -12,8 +12,8 @@ def dispFreeze(theProjectDirectory=None):
     venvName = theProjectPackageDirectory.split('/')[-1] + "-venv"
     
     # Work on:
-    print "pip freeze for " + venvName
-    print sh.pew("in", venvName, "pip", "freeze")
+    print("pip freeze for " + venvName)
+    print(sh.pew("in", venvName, "pip", "freeze"))
 
 
 if __name__ == '__main__':

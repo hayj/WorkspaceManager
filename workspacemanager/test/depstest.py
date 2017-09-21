@@ -22,7 +22,7 @@ assert min <= max
 
 # WARNING : to execute each tests alone
 if min != max:
-    print "WARNING : you have to execute each tests alone"
+    print("WARNING : you have to execute each tests alone")
     exit()
 
 if min <= 0 <= max:
@@ -49,7 +49,7 @@ if min <= 1 <= max:
             
             # Create setups:
             for current in allProjectsPaths:
-                print "Setting up of " + current
+                print("Setting up of " + current)
                 generateSetup(current)
             
             # Create venvs:
@@ -74,7 +74,7 @@ if min <= 1 <= max:
             # Remove all venvs:
             for current in allProjectsPackages:
                 venvName = current + "-venv"
-                print "Deletion of " + venvName
+                print("Deletion of " + venvName)
                 sh.pew("rm", venvName)
 
 
@@ -94,7 +94,7 @@ if min <= 2 <= max:
             
             # Create setups:
             for current in allProjectsPaths:
-                print "Setting up of " + current
+                print("Setting up of " + current)
                 generateSetup(current)
             
             # Create venvs:
@@ -128,7 +128,7 @@ if min <= 2 <= max:
             # Remove all venvs:
             for current in allProjectsPackages:
                 venvName = current + "-venv"
-                print "Deletion of " + venvName
+                print("Deletion of " + venvName)
                 sh.pew("rm", venvName)
 
 if min <= 3 <= max:
@@ -145,7 +145,7 @@ if min <= 3 <= max:
             
             # Create setups:
             for current in allProjectsPaths:
-                print "Setting up of " + current
+                print("Setting up of " + current)
                 generateSetup(current)
             
             # Create venvs:
@@ -183,7 +183,7 @@ if min <= 3 <= max:
             # Remove all venvs:
             for current in allProjectsPackages:
                 venvName = current + "-venv"
-                print "Deletion of " + venvName
+                print("Deletion of " + venvName)
                 sh.pew("rm", venvName)
             
 
@@ -203,7 +203,7 @@ if min <= 4 <= max:
             
             # Create setups:
             for current in allProjectsPaths:
-                print "Setting up of " + current
+                print("Setting up of " + current)
                 generateSetup(current)
 #             
 #             # Create venvs:
@@ -227,22 +227,22 @@ if min <= 4 <= max:
             createDependency(p5, ["P1", "P2", "P3", "P4"])
              
             # Install:
-            print "------- Installation of P1's deps -------"
+            print("------- Installation of P1's deps -------")
             installDeps(theProjectDirectory=p1)
-            print "------- Installation of P5's deps -------"
+            print("------- Installation of P5's deps -------")
             installDeps(theProjectDirectory=p5)
              
             # Check if Dep1 and Dep2 are in the pip freeze:
             pipFreeze = sh.pew("in", "p1" + "-venv", "pip", "freeze")
-            print "------ pip freeze de p1 -------"
-            print pipFreeze
+            print("------ pip freeze de p1 -------")
+            print(pipFreeze)
             self.assertTrue("p2" in pipFreeze)
             self.assertTrue("p3" in pipFreeze)
             self.assertTrue("p4" in pipFreeze)
             self.assertTrue("p5" in pipFreeze)
             pipFreeze = sh.pew("in", "p5" + "-venv", "pip", "freeze")
-            print "------ pip freeze de p5 -------"
-            print pipFreeze
+            print("------ pip freeze de p5 -------")
+            print(pipFreeze)
             self.assertTrue("p2" in pipFreeze)
             self.assertTrue("p3" in pipFreeze)
             self.assertTrue("p4" in pipFreeze)
@@ -253,7 +253,7 @@ if min <= 4 <= max:
             # Remove all venvs:
             for current in allProjectsPackages:
                 venvName = current + "-venv"
-                print "Deletion of " + venvName
+                print("Deletion of " + venvName)
                 sh.pew("rm", venvName)
             
 if __name__ == '__main__':

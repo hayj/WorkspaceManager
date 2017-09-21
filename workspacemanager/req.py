@@ -18,7 +18,7 @@ def installReqs(theProjectDirectory=None):
     
     if isFile(reqsPath):
         # Work on:
-        print "pip install -r requirements.txt for " + venvName
+        print("pip install -r requirements.txt for " + venvName)
         # Get the requirements.txt file and prune all internal dependencies in it:
         if isFile(localDepsPath):
             
@@ -34,20 +34,20 @@ def installReqs(theProjectDirectory=None):
                 if current not in replacementLocalDeps:
                     newReqs.append(current)
                 else:
-                    print current + " will not be installed because a replacement project was found in local dependencies."
+                    print(current + " will not be installed because a replacement project was found in local dependencies.")
             reqs = newReqs
             # Write a temp file :
             strToFile(reqs, reqsPathTmp)
             # Change the req path:
             reqsPath = reqsPathTmp
         # Install all:
-        print reqsPath
+        print(reqsPath)
         reqsPath = theProjectDirectory + "/" + "requirements.txt"
-        print sh.pew("in", venvName, "pip", "install", "-r", reqsPath)
+        print(sh.pew("in", venvName, "pip", "install", "-r", reqsPath))
         # Remove if exists the tmp req:
         removeIfExists(reqsPathTmp)
     else:
-        print "No requirements.txt found!"
+        print("No requirements.txt found!")
 
 if __name__ == '__main__':
     installReqs()

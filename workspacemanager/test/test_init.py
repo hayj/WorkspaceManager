@@ -22,7 +22,7 @@ def walklevel(some_dir, level=1):
 mainPackageName = thelibFolder.lower().split('/')[-1]
 for dirname, dirnames, filenames in walklevel(thelibFolder):
     if "__init__.py" in filenames:
-        print dirname
-        print filenames
+        print(dirname)
+        print(filenames)
         mainPackageName = dirname.split("/")[-1]
-print mainPackageName
+print(mainPackageName)

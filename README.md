@@ -74,7 +74,7 @@ Generate a venv linked to the project using Pew
 	
 This command line is equivalent to `pew new -a /path/to/the/project projectname-venv`
 
-If a python bin is given (e.g. */usr/bin/python2.7*), the command is equivalent to `pew new -p /path/to/python -a /path/to/the/project projectname-venv`
+If a python bin is given (e.g. */usr/bin/python3.6*), the command is equivalent to `pew new -p /path/to/python -a /path/to/the/project projectname-venv`
 
 To use the venv in eclipse PyDev, right click on your project, properties, interpreter, configure, new, add the venv path (e.g. `/home/username/.virtualenvs/projectname-venv/bin/python2.7`), ok, unselect all but the venv libs, ok, select the new venv, ok.
 

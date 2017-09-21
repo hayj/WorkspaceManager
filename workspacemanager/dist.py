@@ -9,7 +9,7 @@ from shutil import copyfile
 import re
 import json
 import getpass
-from setup import getConf
+from .setup import getConf
 
 def purge(dir, pattern):
     for f in os.listdir(dir):
@@ -50,7 +50,7 @@ def getDependencies(theProjectDirectory=None, alreadyLocalInstalled=None):
                         dependenciesPaths.append(currentDepPath)
                         dependenciesPaths += getDependencies(theProjectDirectory=currentDepPath, alreadyLocalInstalled=alreadyLocalInstalled)
                     else:
-                        print line + " doesn't exist."
+                        print(line + " doesn't exist.")
     return dependenciesPaths
     
 def generateDist(theProjectDirectory):
@@ -61,7 +61,7 @@ def generateDist(theProjectDirectory):
     sh.cd(theProjectDirectory)
     sh.python("setup.py", "clean", "--all")
     sh.python("setup.py", "sdist")
-    print "Generating " + theProjectDirectory + " dist..."
+    print("Generating " + theProjectDirectory + " dist...")
     # We search the last tar.gz:
     theTarGz = sortedGlob(theProjectDirectory + "/dist/*.gz", sortBy=GlobSortEnum.MTIME, reverse=False)[-1]
     return theTarGz
@@ -106,10 +106,10 @@ def generateDists(theProjectDirectory=None, theProjectVenvName=None, alreadyLoca
         if ".pyc" not in filePathPaste:
             if conf["erase_wm-dist_templates"]:
                 copyfile(filePath, filePathPaste)
-                print fileName + " created."
+                print(fileName + " created.")
             elif not os.path.isfile(filePathPaste):
                 copyfile(filePath, filePathPaste)
-                print fileName + " created."
+                print(fileName + " created.")
     # Creating the conf file:
     confPath = gatherFolder + '/conf.json'
     if not os.path.isfile(confPath):

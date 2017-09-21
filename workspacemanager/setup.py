@@ -48,13 +48,13 @@ def generateSetup(theProjectDirectory=None, userInput=True):
     
     # If there is a setup.py, stop here:
     if os.path.isfile(theProjectDirectory + "/setup.py"):
-        print "Project already setup."
+        print("Project already setup.")
         exit()
     
     # We check the directory structure:
     answer = None
     if userInput:
-        answer = raw_input('Do you want to check the directory structure ? Write "N" or press enter: ')
+        answer = input('Do you want to check the directory structure ? Write "N" or press enter: ')
     if not (answer == "N"):
 #         theFirstPackage = None
 #         for (dirname, dirnames, filenames) in os.walk(theProjectDirectory):
@@ -74,7 +74,7 @@ def generateSetup(theProjectDirectory=None, userInput=True):
 #             print "The project must have a package with the same name in lower case."
 #             exit()
         if not os.path.isfile(realPackagePath + "/__init__.py"):
-            print "The package of this project must have a __init__.py file."
+            print("The package of this project must have a __init__.py file.")
             exit()
 
     # Get all datas from the conf or the user:
@@ -83,7 +83,7 @@ def generateSetup(theProjectDirectory=None, userInput=True):
         author = getpass.getuser()
         authorInput = None
         if userInput:
-            authorInput = raw_input('Please write your username or press enter for "' + author + '": ')
+            authorInput = input('Please write your username or press enter for "' + author + '": ')
         if authorInput is None or len(authorInput) <= 1:
             conf["author"] = author
         else:
@@ -91,12 +91,12 @@ def generateSetup(theProjectDirectory=None, userInput=True):
     if "author_email" not in conf or conf["author_email"] is None:
         conf["author_email"] = None
         if userInput:
-            conf["author_email"] = raw_input('Please write your email or press enter: ')
+            conf["author_email"] = input('Please write your email or press enter: ')
         if conf["author_email"] is None:
             conf["author_email"] = ""
     description = ""
     if userInput:
-        description = raw_input('Please write a description or press enter: ')
+        description = input('Please write a description or press enter: ')
     
     # Copy datas as default in the conf:
     # Deprecated
@@ -113,7 +113,7 @@ def generateSetup(theProjectDirectory=None, userInput=True):
     for fileName in allTemplateFiles:
         filePath = templatePath + "/" + fileName
         filePathPaste = theProjectDirectory + "/" + fileName
-        print fileName + " created."
+        print(fileName + " created.")
         if not os.path.isfile(filePathPaste) and ".pyc" not in filePathPaste:
             copyfile(filePath, filePathPaste)
 
@@ -122,19 +122,19 @@ def generateSetup(theProjectDirectory=None, userInput=True):
     listSrc = ["<year>", "<copyright holders>"]
     listRep = [str(now.year), conf["author"]]
     replaceInFile(theProjectDirectory + "/LICENCE.txt", listSrc, listRep)
-    print "LICENCE.txt updated."
+    print("LICENCE.txt updated.")
     
     # Replace datas in the setup:
     listSrc = ["__DESCRIPTION__", "__AUTHOR__", "__AUTHOR_EMAIL__"]
     listRep = [description, conf["author"], conf["author_email"]]
     replaceInFile(theProjectDirectory + "/setup.py", listSrc, listRep)
-    print "setup.py updated."
+    print("setup.py updated.")
     
     # Create a requirement file if not exists:
     requPath = theProjectDirectory + "/requirements.txt"
     if not os.path.isfile(requPath):
         touch(requPath)
-    print "requirements.txt created."
+    print("requirements.txt created.")
     
     # If there is no __init__ or it is empty, create it with version:
     toWrite = '__version__ = "0.0.1"'
@@ -145,7 +145,7 @@ def generateSetup(theProjectDirectory=None, userInput=True):
         filedata = f.read()
         if filedata is None or len(filedata) == 0 or filedata == "" or filedata == " ":
             f.write(toWrite)
-            print "__version__ added to the __init__.py."
+            print("__version__ added to the __init__.py.")
 
 if __name__ == '__main__':
     generateSetup()

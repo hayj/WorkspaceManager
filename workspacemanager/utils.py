@@ -31,7 +31,7 @@ def getDirs(theProjectDirectory=None):
     if theProjectDirectory is None:
         theProjectDirectory = os.getcwd()
     if not os.path.isdir(theProjectDirectory):
-        print theProjectDirectory + " is not a directory."
+        print(theProjectDirectory + " is not a directory.")
         exit()
     theProjectPackageDirectory = theProjectDirectory + "/" + theProjectDirectory.split("/")[-1].lower()
     thisLibName = thisLibPackageDirectory.split("/")[-1].lower()
@@ -50,7 +50,7 @@ def getDirs2(theProjectDirectory=None):
     if theProjectDirectory is None:
         theProjectDirectory = os.getcwd()
     if not os.path.isdir(theProjectDirectory):
-        print theProjectDirectory + " is not a directory."
+        print(theProjectDirectory + " is not a directory.")
         exit()
     theProjectPackageDirectory = theProjectDirectory + "/" + theProjectDirectory.split("/")[-1].lower()
     thisLibName = thisLibPackageDirectory.split("/")[-1].lower()
@@ -120,7 +120,7 @@ class GlobSortEnum():
         MTIME,
         NAME,
         SIZE
-    ) = range(3)
+    ) = list(range(3))
 
 def sortedGlob(regex, caseSensitive=True, sortBy=GlobSortEnum.NAME, reverse=False):
     # case insensitive glob function :
@@ -160,10 +160,10 @@ def findProject(workspacePath, projectName):
     projectPaths = newProjectPaths
     # Check wether there is one dir:
     if projectPaths is None or len(projectPaths) == 0:
-        print projectName + " not found."
+        print(projectName + " not found.")
         return None
     if len(projectPaths) > 1:
-        print projectName + " conflicts."
+        print(projectName + " conflicts.")
         return None
     # Return the path:
     return projectPaths[0]
@@ -249,7 +249,7 @@ def removeIfExists(path):
             raise # re-raise exception if a different error occurred
 
 if __name__ == '__main__':
-    print fileToStrList("/home/hayj/test.txt")
+    print(fileToStrList("/home/hayj/test.txt"))
 
 
 

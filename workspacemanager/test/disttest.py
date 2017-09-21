@@ -7,7 +7,7 @@
 # /home/hayj/Workspace/Python/Organization/WorkspaceManager/workspacemanager/test/workspacetest/P1/wm-dist/rsync-all.sh
 
 import os
-execfile(os.path.dirname(os.path.abspath(__file__)) + "/setpythonpath.py", {})
+exec(compile(open(os.path.dirname(os.path.abspath(__file__)) + "/setpythonpath.py").read(), os.path.dirname(os.path.abspath(__file__)) + "/setpythonpath.py", 'exec'), {})
 
 
 import unittest
@@ -30,7 +30,7 @@ assert min <= max
 
 # WARNING : to execute each tests alone
 if min != max:
-    print "WARNING : you have to execute each tests alone"
+    print("WARNING : you have to execute each tests alone")
     exit()
 
 if min <= 0 <= max:
@@ -61,7 +61,7 @@ if min <= 1 <= max:
                 
                 # Create setups:
                 for current in allProjectsPaths:
-                    print "Setting up of " + current
+                    print("Setting up of " + current)
                     generateSetup(current)
     #             
     #             # Create venvs:
@@ -85,7 +85,7 @@ if min <= 1 <= max:
                 createDependency(p5, ["P1", "P2", "P3", "P4"])
              
             # Tests:
-            print "Dependecies test..."
+            print("Dependecies test...")
 #             for p in getDependencies(theProjectDirectory=p1): print p
             generateDists(theProjectDirectory=p1)
             
@@ -93,7 +93,7 @@ if min <= 1 <= max:
             # Remove all venvs:
             for current in allProjectsPackages:
                 venvName = current + "-venv"
-                print "Deletion of " + venvName
+                print("Deletion of " + venvName)
                 sh.pew("rm", venvName)
             
             # TODO

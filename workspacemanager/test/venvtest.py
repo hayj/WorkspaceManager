@@ -37,8 +37,8 @@ if min <= 1 <= max:
             
             # We check that the venv doesn't exists:
             venvsList = sh.pew("ls").split()
-            print "Available venvs:"
-            print venvsList
+            print("Available venvs:")
+            print(venvsList)
             self.assertFalse(venvName in venvsList)
             
             # Generate the venv:
@@ -46,18 +46,18 @@ if min <= 1 <= max:
             
             # We check that the venv exists:
             venvsList = sh.pew("ls").split()
-            print "Available venvs:"
-            print venvsList
+            print("Available venvs:")
+            print(venvsList)
             self.assertTrue(venvName in venvsList)
             
             # Then we delete the venv:
             sh.pew("rm", venvName)
-            print venvName + " deleted."
+            print(venvName + " deleted.")
             
             # We check that the venv exists:
             venvsList = sh.pew("ls").split()
-            print "Available venvs:"
-            print venvsList
+            print("Available venvs:")
+            print(venvsList)
 
 
 if __name__ == '__main__':
