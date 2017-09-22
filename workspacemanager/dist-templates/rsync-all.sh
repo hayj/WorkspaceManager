@@ -64,5 +64,11 @@ for current in $DIR/*.gz; do
 	bName=$(basename $current)
 	current=$wmDistTmp"/"$bName
 	 # Pew is not found by ssh, so we need the full path, you can edit this line if pew is at an other place
+    package=$(echo $bName | perl -nle 'm/(.*)-(?:\d.)+\d.tar.gz/; print $1')
+	ssh $user@$adress "/usr/bin/yes | pew in $venv pip uninstall $package"
 	ssh $user@$adress "pew in $venv pip install $current"
 done
+
+
+
+
