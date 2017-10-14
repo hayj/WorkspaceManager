@@ -42,7 +42,6 @@ def installReqs(theProjectDirectory=None):
             reqsPath = reqsPathTmp
         # Install all:
         print(reqsPath)
-        reqsPath = theProjectDirectory + "/" + "requirements.txt"
         print(sh.pew("in", venvName, "pip", "install", "-r", reqsPath))
         # Remove if exists the tmp req:
         removeIfExists(reqsPathTmp)

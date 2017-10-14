@@ -72,11 +72,15 @@ if os.path.isfile(readmePath):
     except(IOError, ImportError):
         readme = open(readmePath).read()
 
+packageName = thelibFolder.lower().split('/')[-1]  
+if packageName.startswith("pip-"):
+    packageName = mainPackageName.lower()
+
 # The whole setup:
 setup(
 
     # The name for PyPi:
-    name=thelibFolder.lower().split('/')[-1],
+    name=packageName,
 
     # The version of the code which is located in the main __init__.py:
     version=version,

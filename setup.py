@@ -6,15 +6,15 @@ import importlib
 import re
 
 # Vars to set:
-description = "This tool can manage a workspace by providing some useful function (generation of the setup files, generate a virtual env according to the project name, install your own dependencies, generate dist of all dependencies...). See the readme for more informations."
+description = "This tool can manage a workspace by providing some useful functions (generation of the setup file and others, generate a virtual env according to the project name, install your own dependencies, generate dist of all dependencies...). See the readme for more informations."
 author = "hayj"
 author_email = "hj@hayj.fr"
 version = "0.0.1" # replaced by the version in the main init file if exists
 
 # We take all requirements from the file or you can set it here :
 requirementPath = 'requirements.txt'
-install_requires = [] # Example : ["gunicorn", "docutils >= 0.3", "lxml==0.5a7"]
-dependency_links = []
+install_requires = None # Example : ["gunicorn", "docutils >= 0.3", "lxml==0.5a7"]
+dependency_links = None
 if install_requires is None and dependency_links is None and os.path.isfile(requirementPath):
     with open(requirementPath) as f:
         dependency_links = []
@@ -55,7 +55,7 @@ if os.path.isfile(readmePath):
 setup(
 
     # The name for PyPi:
-    name=mainPackageName,
+    name="workspacemanager",
 
     # The version of the code which is located in the main __init__.py:
     version=version,

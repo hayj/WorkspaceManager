@@ -38,6 +38,8 @@ Installation
 
 	sudo pip install workspacemanager
 
+Then `cd` to your workspace and execute `touch wm-conf.json`.
+
 Generate the setup file
 ------------------------
 
@@ -79,6 +81,8 @@ If a python bin is given (e.g. */usr/bin/python3.6*), the command is equivalent 
 To use the venv in eclipse PyDev, right click on your project, properties, interpreter, configure, new, add the venv path (e.g. `/home/username/.virtualenvs/projectname-venv/bin/python2.7`), ok, unselect all but the venv libs, ok, select the new venv, ok.
 
 If this function doesn't work, add the pew path to `/bin` using `sudo ln -s ~/.local/bin/pew /bin`
+
+If you want python 3 as default python, you can add `alias wm-pew="wm-pew -p /usr/bin/python3.5"` in your `~/.bash_aliases`.
 
 Install internal workspace dependencies on the project venv
 ------------------------
@@ -129,6 +133,8 @@ You can write your own script in the `wm-dist` folder to run the project on the 
 You can set `erase_wm-dist_templates` to true in the `wm-conf.json` file if you want the dist templates to be erased at each re-use.
 
 If pew is not found on the remote server, add the pew path to `/bin` using `sudo ln -s ~/.local/bin/pew /bin`
+
+You can set multiple addresses in dist/conf.json by separating all addresses with spaces, e.g. `"localhost 10.10.10.200 test.com"`
 
 Others
 ------

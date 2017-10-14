@@ -113,7 +113,7 @@ def generateDists(theProjectDirectory=None, theProjectVenvName=None, alreadyLoca
     # Creating the conf file:
     confPath = gatherFolder + '/conf.json'
     if not os.path.isfile(confPath):
-        distConf = {"project": theProjectName, "adress": "localhost", "venv": getVenvName(theProjectName), "user": getpass.getuser()}
+        distConf = {"path": "~", "port": "22", "project": theProjectName, "address": "localhost", "venv": getVenvName(theProjectName), "user": getpass.getuser()}
         with open(confPath, 'w') as fp:
             json.dump(distConf, fp)
     # Making the script executable:
