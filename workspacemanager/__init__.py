@@ -1,6 +1,5 @@
 __version__ = "0.2.10"
 
-
 from .setup import generateSetup
 from .venv import generateVenv
 from .deps import installDeps
