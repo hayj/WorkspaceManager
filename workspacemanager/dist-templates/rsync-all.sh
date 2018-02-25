@@ -1,8 +1,10 @@
-# Requirements: you need to setup the venv of your project on the remote server
-# Also install pipsi and pew and then run a pew command to init it
-# sudo pip install pipsi
-# sudo pipsi install pew
-# pew ls
+# Requirements:
+# install jq:
+#  * sudo apt-get install jq
+# install pipsi and pew and then run a pew command to init it:
+#  * sudo pip install pipsi
+#  * sudo pipsi install pew
+#  * pew ls
 
 # Getting the current dir:
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -30,6 +32,15 @@ path=$(getJson "path" $confFile)
 pythonPath=$(getJson "pythonPath" $confFile)
 # Getting the port in the conf:
 port=$(getJson "port" $confFile)
+# Getting the removeTargetDist in the conf:
+removeTargetDist=$(getJson "removeTargetDist" $confFile)
+# We delete the target dist package because we don't want to install it (just all dependencies):
+if [ "$removeTargetDist" == "null" ] || [ $removeTargetDist == true ]
+then
+    # Warning, if your target package doesn't match this pattern, you have to make your own:
+    targetDistPattern="*"$(echo "$project" | tr '[:upper:]' '[:lower:]')"-*.tar.gz"
+    rm $DIR/$targetDistPattern 2> /dev/null
+fi
 # For each address:
 for var in "${addresses[@]}"
 do
@@ -46,6 +57,8 @@ do
     # Create the directory:
     wmDistTmp=$path"/wm-dist-tmp/"$project
     ssh -p $port "$user"@$address mkdir -p $wmDistTmp
+    # We delete all tar.gz:
+    ssh -p $port "$user"@$address rm $wmDistTmp/*-*.tar.gz
     # Rsync all:
     rsync -e "ssh -p $port" -a $DIR/* $user@$address:$wmDistTmp
     # Check whether workspacemanager is installed:
@@ -73,7 +86,8 @@ do
         bName=$(basename $current)
         current=$wmDistTmp"/"$bName
         # Pew is not found by ssh, so we need the full path, you can edit this line if pew is at an other place
-        package=$(echo $bName | perl -nle 'm/(.*)-(?:\d.)+\d.tar.gz/; print $1')
+        package=$(echo $bName | perl -nle 'm/(.*)-(?:\d+.)+\d+.tar.gz/; print $1')
+        echo "==> Uninstalling $package... <=="
         ssh -p $port $user@$address "/usr/bin/yes | pew in $venv pip uninstall $package"
         ssh -p $port $user@$address "pew in $venv pip install $current"
     done
