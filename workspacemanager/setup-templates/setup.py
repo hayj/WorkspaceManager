@@ -69,7 +69,9 @@ if os.path.isfile(readmePath):
     try:
         import pypandoc
         readme = pypandoc.convert(readmePath, 'rst')
-    except(IOError, ImportError):
+    except(IOError, ImportError) as e:
+        print(e)
+        print("Cannot use pypandoc to convert the README...")
         readme = open(readmePath).read()
 
 packageName = thelibFolder.lower().split('/')[-1]  
