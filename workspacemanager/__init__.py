@@ -1,4 +1,4 @@
-__version__ = "0.2.14"
+__version__ = "0.2.18"
 
 from .setup import generateSetup
 from .venv import generateVenv

@@ -105,6 +105,8 @@ setup(
             'wm-req = workspacemanager.req:installReqs',
             'wm-dist = workspacemanager.dist:generateDists',
             'wm-help = workspacemanager.help:printHelp',
+            'wm-path = workspacemanager.path:generatePythonpath',
+            'wm-subl = workspacemanager.subl:installSublReqs',
         ],
     },
 )

@@ -4,6 +4,7 @@ import os, errno
 import sys
 import subprocess
 import glob
+import getpass
 
 def touch(fname, times=None):
     with open(fname, 'a'):
@@ -247,6 +248,70 @@ def removeIfExists(path):
     except OSError as e: # this would be "except OSError, e:" before Python 2.6
         if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
             raise # re-raise exception if a different error occurred
+
+def getAllProjects(workspacePath):
+    projects = dict()
+    for root, subdirs, files in os.walk(workspacePath):
+        if "/build/lib" in root:
+            continue
+        if not ("setup.py" in files):
+            continue
+        allPackagesIn = []
+        for currentSubDir in subdirs:
+            currentSubDir = root + "/" + currentSubDir
+            for _, _, currentSubDirFiles in os.walk(currentSubDir):
+                if "__init__.py" in currentSubDirFiles:
+                    allPackagesIn.append(currentSubDir)
+        if len(allPackagesIn) == 0:
+            continue
+        projects[root] = allPackagesIn
+    # We delete all project which are in a project:
+    keys = list(projects.keys())
+    toDelete = set()
+    for i in keys:
+        for u in keys:
+            if u != i:
+                if u.startswith(i):
+                    toDelete.add(u)
+    for current in toDelete:
+        del projects[current]
+    return projects
+
+
+def getParentDir(path, depth=1):
+    for i in range(depth):
+        path = os.path.abspath(os.path.join(path, os.pardir))
+    return path
+
+
+def getUser():
+    return getpass.getuser()
+
+def strToFile(text, path):
+#     if not isDir(getDir(path)) and isDir(getDir(text)):
+#         path, text = text, path
+    if isinstance(text, list):
+        text = "\n".join(text)
+    textFile = open(path, "w")
+    textFile.write(text)
+    textFile.close()
+
+def fileToStr(path, split=False):
+    if split:
+        return fileToStrList(path)
+    else:
+        with open(path, 'r') as myfile:
+            data = myfile.read()
+        return data
+
+def removeFile(path):
+    if not isinstance(path, list):
+        path = [path]
+    for currentPath in path:
+        try:
+            os.remove(currentPath)
+        except OSError:
+            pass
 
 if __name__ == '__main__':
     print(fileToStrList("/home/hayj/test.txt"))

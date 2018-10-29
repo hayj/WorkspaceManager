@@ -3,13 +3,15 @@
 from workspacemanager.utils import *
 import sh
 
-def installReqs(theProjectDirectory=None):
+def installReqs(theProjectDirectory=None, venvName=None):
     # Get all dirs:
     (thisLibPackageDirectory,
      theProjectDirectory,
      theProjectPackageDirectory,
      thisLibName) = getDirs(theProjectDirectory=theProjectDirectory)
-    venvName = theProjectPackageDirectory.split('/')[-1] + "-venv"
+    if venvName is None:
+        venvName = theProjectPackageDirectory.split('/')[-1] + "-venv"
+    
     
     # Get paths:
     localDepsPath = theProjectDirectory + "/" + "local-dependencies.txt"
