@@ -6,6 +6,9 @@ from workspacemanager.utils import *
 from workspacemanager.test.utils import fileToStr
 import sh
 
+"""
+    This file will install local dependencies to the current venv of the current project
+"""
 
 
 def installDeps(theProjectDirectory=None, theProjectVenvName=None, alreadyLocalInstalled=None, indent=0):

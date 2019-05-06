@@ -97,16 +97,22 @@ setup(
     # If you want a command line like "do-something", on a specific funct of the package :
     entry_points = {
         'console_scripts': [
+
             'wm-setup = workspacemanager.setup:generateSetup',
-            'wm-pew = workspacemanager.venv:generateVenv',
-            'wm-deps = workspacemanager.deps:installDeps',
-            'wm-workon = workspacemanager.workon:dispWorkon',
-            'wm-freeze = workspacemanager.freeze:dispFreeze',
-            'wm-req = workspacemanager.req:installReqs',
+            'wm-pewinst = workspacemanager.pewinst:installSublReqs',
+            'wm-condainst = workspacemanager.condainst:installSublReqs',
+            'wm-condaadd = workspacemanager.condaadd:generatePythonpath',
+            'wm-pewadd = workspacemanager.pewadd:generatePythonpath',
             'wm-dist = workspacemanager.dist:generateDists',
             'wm-help = workspacemanager.help:printHelp',
-            'wm-path = workspacemanager.path:generatePythonpath',
-            'wm-subl = workspacemanager.subl:installSublReqs',
+
+            # 'wm-path = workspacemanager.path:generatePythonpath',
+            # 'wm-subl = workspacemanager.subl:installSublReqs',
+            # 'wm-pew = workspacemanager.venv:generateVenv',
+            # 'wm-deps = workspacemanager.deps:installDeps',
+            # 'wm-workon = workspacemanager.workon:dispWorkon',
+            # 'wm-freeze = workspacemanager.freeze:dispFreeze',
+            # 'wm-pew-install-current-req = workspacemanager.req:installReqs',
         ],
     },
 )

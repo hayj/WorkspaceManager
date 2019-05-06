@@ -5,6 +5,20 @@ import sys
 import subprocess
 import glob
 import getpass
+import sh
+from pathlib import Path
+
+def mkdir(path):
+    mkdirIfNotExists(path)
+
+def mkdirIfNotExists(path):
+    """
+        This function make dirs recursively like mkdir -p in bash
+    """
+    os.makedirs(path, exist_ok=True)
+
+def homeDir():
+    return str(Path.home())
 
 def touch(fname, times=None):
     with open(fname, 'a'):
@@ -312,6 +326,68 @@ def removeFile(path):
             os.remove(currentPath)
         except OSError:
             pass
+
+def removeIfExistsSecure(path, slashCount=5):
+    if path.count('/') >= slashCount:
+        removeFile(path)
+
+def getReqs(theProjectDirectory=None):
+    # Get all dirs:
+    (thisLibPackageDirectory,
+     theProjectDirectory,
+     theProjectPackageDirectory,
+     thisLibName) = getDirs(theProjectDirectory=theProjectDirectory)
+    # Get paths:
+    reqsPath = theProjectDirectory + "/" + "requirements.txt"
+    if isFile(reqsPath):
+        return reqsPath
+
+def installReqs(theProjectDirectory=None, venvName=None):
+    # Get all dirs:
+    (thisLibPackageDirectory,
+     theProjectDirectory,
+     theProjectPackageDirectory,
+     thisLibName) = getDirs(theProjectDirectory=theProjectDirectory)
+    if venvName is None:
+        venvName = theProjectPackageDirectory.split('/')[-1] + "-venv"
+    
+    
+    # Get paths:
+    localDepsPath = theProjectDirectory + "/" + "local-dependencies.txt"
+    reqsPath = theProjectDirectory + "/" + "requirements.txt"
+    reqsPathTmp = getDir(reqsPath) + "/requirements-tmp.txt"
+    
+    if isFile(reqsPath):
+        # Work on:
+        print("pip install -r requirements.txt for " + venvName)
+        # Get the requirements.txt file and prune all internal dependencies in it:
+        if isFile(localDepsPath):
+            
+            # First we get all replacement projects
+            localDeps = fileToStrList(localDepsPath)
+            replacementLocalDeps = []
+            for current in localDeps:
+                if "/" in current:
+                    replacementLocalDeps.append(current.split("/")[-1])
+            reqs = fileToStrList(reqsPath)
+            newReqs = []
+            for current in reqs:
+                if current not in replacementLocalDeps:
+                    newReqs.append(current)
+                else:
+                    print(current + " will not be installed because a replacement project was found in local dependencies.")
+            reqs = newReqs
+            # Write a temp file :
+            strToFile(reqs, reqsPathTmp)
+            # Change the req path:
+            reqsPath = reqsPathTmp
+        # Install all:
+        print(reqsPath)
+        print(sh.pew("in", venvName, "pip", "install", "-r", reqsPath))
+        # Remove if exists the tmp req:
+        removeIfExists(reqsPathTmp)
+    else:
+        print("No requirements.txt found!")
 
 if __name__ == '__main__':
     print(fileToStrList("/home/hayj/test.txt"))

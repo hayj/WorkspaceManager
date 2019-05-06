@@ -11,6 +11,12 @@ import json
 import getpass
 from .setup import getConf
 
+
+"""
+    This script will generate a wm-dist dir in the project which will include all tar.gz of all dependencies and also include himself.
+    It will include external dependencies in all requirements.txt
+"""
+
 def purge(dir, pattern):
     for f in os.listdir(dir):
         if re.search(pattern, f):

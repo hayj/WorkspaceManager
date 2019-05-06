@@ -2,16 +2,19 @@
 
 # https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv
 
+
+"""
+	
+	This script install all req from the workspace in st-venv (pew)
+
+"""
+
 import os
 import sh
 try:
 	from utils import *
-	from path import *
-	from req import *
 except:
 	from workspacemanager.utils import *
-	from workspacemanager.path import *
-	from workspacemanager.req import *
 from pathlib import Path
 
 
@@ -24,7 +27,6 @@ def homeDir():
 # exit()
 
 def installSublReqs():
-	generatePythonpath()
 	venvName = "st-venv"
 	workspacePath = homeDir() + "/Workspace"
 	venvPath = homeDir() + "/.virtualenvs/" + venvName

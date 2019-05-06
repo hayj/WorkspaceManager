@@ -12,6 +12,10 @@ from os.path import isfile, join
 import datetime
 from workspacemanager.utils import *
 
+"""
+    This script will create a dir tree for the current project
+"""
+
 def getConf(workspacePath):
     conf = dict()
     description = ""

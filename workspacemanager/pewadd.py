@@ -2,11 +2,15 @@
 
 # https://stackoverflow.com/questions/4757178/how-do-you-set-your-pythonpath-in-an-already-created-virtualenv
 
+"""
+	This script add all project path to st-venv
+"""
+
 import os
 import sh
 
 from workspacemanager.utils import *
-from workspacemanager.path import *
+# from workspacemanager.path import *
 from pathlib import Path
 
 import sys

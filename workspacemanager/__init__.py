@@ -1,11 +1,11 @@
-__version__ = "0.2.18"
+__version__ = "0.3.2"
 
 from .setup import generateSetup
-from .venv import generateVenv
-from .deps import installDeps
-from .workon import dispWorkon
-from .freeze import dispFreeze
-from .req import installReqs
+# from .venv import generateVenv
+# from .deps import installDeps
+# from .workon import dispWorkon
+# from .freeze import dispFreeze
+# from .req import installReqs
 from .dist import getDependencies
 from .dist import generateDists
 from .help import printHelp
