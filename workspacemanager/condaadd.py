@@ -34,20 +34,21 @@ def homeDir():
     return str(Path.home())
 
 def generatePythonpath():
-	venvName = "conda-venv"
+	venvName = "oldtipi"
+	condaPath = homeDir() + "/lib/anaconda3-ubuntu16" # anaconda3-ubuntu16
 	workspacePath = homeDir() + "/Workspace"
-	sitePackagePath = sortedGlob(homeDir() + "/lib/miniconda3/envs/conda-venv/lib/python3.*/site-packages")[0]
+	sitePackagePath = sortedGlob(condaPath + "/envs/" + venvName + "/lib/python3.*/site-packages")[0]
 	projects = getAllProjects(workspacePath)
 	scriptDir = homeDir() + "/tmp"
 	mkdir(scriptDir)
-	condaLibPath = homeDir() + "/lib/miniconda3/bin"
+	condaLibPath = condaPath + "/bin"
 	scriptPath = scriptDir + "/tmp-script-for-conda-add.sh"
 	for projectPath in projects:
 		scriptContent = ""
 		# scriptContent += "source " + homeDir() + "/.bashrc" + "\n"
 		# scriptContent += "source " + homeDir() + "/.bash_aliases" + "\n"
 		# scriptContent += "source " + homeDir() + "/.hjbashrc" + "\n"
-		scriptContent += "source " + condaLibPath + "/activate conda-venv" + "\n"
+		scriptContent += "source " + condaLibPath + "/activate tf-venv" + "\n"
 		scriptContent += condaLibPath + "/conda develop " + projectPath + "\n"
 		# scriptContent += "source deactivate" + "\n"
 		strToFile(scriptContent, scriptPath)

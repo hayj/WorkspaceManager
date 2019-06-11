@@ -39,17 +39,17 @@ def homeDir():
 # exit()
 
 def installSublReqs():
-	venvName = "conda-venv"
+	# venvName = "conda-venv"
 	workspacePath = homeDir() + "/Workspace"
-	venvPath = homeDir() + "/.virtualenvs/" + venvName
-	projects = getAllProjects(workspacePath)
-	print("Installing all projects in the python path of " + venvName + "...")
+	# venvPath = homeDir() + "/.virtualenvs/" + venvName
+	# projects = getAllProjects(workspacePath)
+	# print("Installing all projects in the python path of " + venvName + "...")
 
 	projects = getAllProjects(workspacePath)
 	scriptDir = homeDir() + "/tmp"
 	mkdir(scriptDir)
 	# condaLibPath = homeDir() + "/lib/anaconda3/bin"
-	condaLibPath = homeDir() + "/lib/miniconda3/bin"
+	# condaLibPath = homeDir() + "/lib/miniconda3/bin"
 	scriptPath = scriptDir + "/tmp-script-for-conda-install.sh"
 
 	for current in projects.keys():
@@ -57,7 +57,7 @@ def installSublReqs():
 		if reqPath is not None:
 			try:
 				scriptContent = ""
-				scriptContent += "source " + condaLibPath + "/activate conda-venv" + "\n"
+				# scriptContent += "source " + condaLibPath + "/activate conda-venv" + "\n"
 				scriptContent += "pip install -r " + reqPath + "\n"
 				strToFile(scriptContent, scriptPath)
 				print(sh.bash(scriptPath))
